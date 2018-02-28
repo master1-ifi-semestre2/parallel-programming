@@ -38,6 +38,14 @@ void showTab(Array * array) {
   printf("]\n");
 }
 
+void carre(Array * array) {
+  int i;
+  #pragma omp parallel for
+  for (i = 0; i < array->taille; i++) {
+    array->donnee[i] = array->donnee[i]*array->donnee[i];
+  }
+}
+
 int main(int argc, char** argv) {
   Array * array;
   int n;
@@ -46,7 +54,9 @@ int main(int argc, char** argv) {
     array = createTab(n);
     printf("Taille du tableau %d \n", array->taille);
     initTab(array);
-    showTab(array);
+    //showTab(array);
+    carre(array);
+    //showTab(array);
   } else {
     printf("Manque la taille du tableau\n");
   }
