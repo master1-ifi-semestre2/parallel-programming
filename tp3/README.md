@@ -59,8 +59,50 @@ OpenMP utilise deux notions de portée. La première est dite lexical et ne cont
 
 a) Écrivez un programme openMP contenant une variable globale int global et une méthode privateScope0() contenant une boucle for parallèle incrementant global. Quelle sera la valeur de global en entrée et en sortie de cette méthode ?
 
+```c
+int global = 0;
+
+void privateScope0() {
+  printf("start = %d\n", global);
+  #pragma omp parallel for
+  for (int i = 0; i < 100000000; i++) {
+    global++;
+    printf("in = %d\n", global);
+  }
+  printf("global = %d\n", global);
+}
+```
+
 b) Écrivez une méthode privateScope1() faisant le même traitement, mais déclarant global comme variable privée à l'aide de l'option de pragma private(). Quel est le résultat?
 
+```c
+void privateScope1() {
+  global = 0;
+#pragma omp parallel for private(global)
+  for (int i = 0; i < 10; i++) {
+    global++;
+    printf("in = %d\n", global);
+  }
+}
+```
+
 c) Écrivez une méthode privateScope2() qui fait la même boucle for que dans la question précédente, mais délègue l'incrémentation de global à une méthode void privateScope2_sub(). Quel est le résultat? Qu'en concluez vous sur la portée de clause private ?
+
+```c
+void privateScope2_sub();
+
+void privateScope2() {
+  global = 0;
+#pragma omp parallel for private(global)
+  for (int i = 0; i < 10; i++) {
+    void privateScope2_sub();
+    printf("in = %d\n", global);
+  }
+}
+
+void privateScope2_sub() {
+  global++;
+}
+```
 
 Suivant la version d'OpenMP, la valeur initiale et finale d'une variable privée peut être non définie. Pour éviter toute ambiguité, on peut utiliser les clauses firstprivate() et lastprivate().
