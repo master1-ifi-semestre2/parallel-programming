@@ -27,6 +27,9 @@ struct tablo * allocateTablo(int size) {
 
 void montee(struct tablo * source, struct tablo * destination) {
   //TODO : remplissage du tableau destination de taille 2*n en
+  for (int i = 0; i < source->size; i++) {
+    destination->tab[destination->size]
+  }
   // copiant les données du tableau source dans destination, 
   // à la bonne position
   // on suppose que le malloc de destination a été fait avant
