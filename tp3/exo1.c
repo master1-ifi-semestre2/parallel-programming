@@ -18,7 +18,8 @@ Methode qui affiche le
 void paralleRegionForOutside() {
   #pragma omp parallel 
   {}
-  for (int i=0; i < 10; i++) {
+  int i;
+  for (i=0; i < 10; i++) {
     printf("%d threads.\n", omp_get_thread_num());
   }
 }
@@ -26,7 +27,8 @@ void paralleRegionForOutside() {
 void parallelRegionForInside() {
   #pragma omp parallel
   {
-    for (int i=0; i < 10; i++) {
+    int i;
+    for (i=0; i < 10; i++) {
       printf("%d threads.\n", omp_get_thread_num());
     }
   }
@@ -39,8 +41,9 @@ void parallelRegionForInsideWithPragma() {
   #pragma omp parallel
   {
     printf("%d threads--------.\n", omp_get_thread_num());
+    int i;
     #pragma omp for
-    for(int i=0; i < 10; i++) {
+    for(i=0; i < 10; i++) {
       printf("%d threads.\n", omp_get_thread_num());
     }   
   }
