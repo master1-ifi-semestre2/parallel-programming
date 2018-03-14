@@ -26,18 +26,18 @@ struct tablo * allocateTablo(int size) {
 }
 
 void montee(struct tablo * source, struct tablo * destination) {
-  //DONE : remplissage du tableau destination de taille 2*n en
+//DONE : remplissage du tableau destination de taille 2*n en
   int i, j, l;
   for (i = 0; i < source->size; i++) {
-    destination->tab[destination->size -i -1] = source->tab[i];
+    destination->tab[source->size +i] = source->tab[i];
   }
   // copiant les données du tableau source dans destination, 
   // à la bonne position
   // on suppose que le malloc de destination a été fait avant
-  
+
   // DONE: Boucle de calcul pour la montée dans l'arbre/tableau
   for (l = log2(source->size) - 1; l >= 0; l--) {
-    for (j = pow(2, 1); j <= pow(2, l + 1) - 1; j++) {
+    for (j = pow(2, l); j <= pow(2, l + 1) - 1; j++) {
       destination->tab[j] = destination->tab[2*j] + destination->tab[(2*j)+1];
     }
   }
